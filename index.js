@@ -60,7 +60,7 @@ const getContributorsFromWuji = async (device) => {
     }).then(res => {
         return JSON.parse(res.data.find(n => n.project === device).data);
     }).catch(res => {
-        console.log('没有找到' + device + '在wuji')
+        console.log('没有找到' + device + '在wuji', res)
         return null
     })
 }
@@ -71,12 +71,18 @@ const generatorContributors = async (project_name, issue_title) => {
         const data = await getContributorsFromWuji(device);
 
         let component = issue_title.match(/\[(\w+)\]/i);
-        if (!component) return [];
+        if (!component) {
+            console.error('没有在title中找到组件');
+            return [];
+        }
 
-        component = component[1].toLocaleLowerCase();
+        component = component[1].toLocaleLowerCase().replaceAll('-', '');
 
-        let componentData = data.find(n => n.name === component);
-        if (!componentData) return [];
+        let componentData = data.find(n => n.name.toLocaleLowerCase().replaceAll('-', '') === component);
+        if (!componentData) {
+            console.log('没有在 oms 端中找到对应组件: ' + component, data)
+            return [];
+        }
 
         const taskName = project_name.replace('tdesign-', '').replace('mobile-', '').replace('miniprogram', 'wx');
 
@@ -96,6 +102,7 @@ generatorContributors(project_name, issue_title).then(data => {
     console.log(data);
     core.setOutput("contributors", data.join(','));
 }).catch(err => {
+    console.log(err)
     core.setFailed("contributors", err);
 })
 
