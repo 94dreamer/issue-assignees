@@ -26,7 +26,7 @@ const ReposMap = {
     },
     "tdesign": {
         type: 'isDefault',
-        owner: ['94dreamer']
+        owner: ['xiaosansiji']
     },
     "tdesign-common": {
         type: 'isDefault',
