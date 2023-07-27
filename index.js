@@ -38,15 +38,15 @@ const ReposMap = {
     },
     "tdesign-vue-starter": {
         type: 'isDefault',
-        owner: ['uyarn']
+        owner: ['uyarn','timi137137']
     },
     "tdesign-vue-next-starter": {
         type: 'isDefault',
-        owner: ['pengYYYYY']
+        owner: ['timi137137','liweijie0812']
     },
     "tdesign-react-starter": {
         type: 'isDefault',
-        owner: ['xucz']
+        owner: ['xucz','uyarn']
     },
     "tdesign-icons": {
         type: 'isDefault',
